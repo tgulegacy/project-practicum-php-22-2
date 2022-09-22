@@ -30,15 +30,15 @@
         {
             return;
         }
-    } 
 
-    class Client extends User
-    {
         public function change_password()
         {
             return;
         }
+    } 
 
+    class Client extends User
+    {
         public function buy($product)
         {
             return;
