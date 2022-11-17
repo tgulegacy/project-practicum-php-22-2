@@ -1,0 +1,11 @@
+{
+    "name": "tgu/polikarpov",
+    "autoload": {
+        "psr-4": {
+            "Tgu\\Polikarpov\\": "src/"
+        }
+    },
+    "require": {
+        "fakerphp/faker": "^1.20"
+    }
+}
