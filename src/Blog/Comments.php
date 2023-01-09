@@ -1,15 +1,16 @@
 <?php
 
-namespace Tgu\Polikarpov\Comments;
+namespace Tgu\Polikarpov\Blog;
 
-use Tgu\Polikarpov\Posts\Posts;
-use Tgu\Polikarpov\User\User;
+use Tgu\Polikarpov\Blog\UUID;
+use Tgu\Polikarpov\Blog\Posts;
+use Tgu\Polikarpov\Blog\User;
 
 class Comments
 {
 
     public function __construct(
-        private int $id,
+        private UUID $uuid,
         private User $user,
         private Posts $posts,
         private string $text,
@@ -20,7 +21,7 @@ class Comments
 
     public function __toString(): string
     {
-        return $this->id . ' ' . $this->user . ' ' . $this->posts . ' ' .
+        return $this->uuid . ' ' . $this->user . ' ' . $this->posts . ' ' .
             $this->text;
     }
 }

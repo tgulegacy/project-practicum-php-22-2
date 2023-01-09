@@ -1,14 +1,15 @@
 <?php
 
-namespace Tgu\Polikarpov\Posts;
+namespace Tgu\Polikarpov\Blog;
 
-use Tgu\Polikarpov\User\User;
+use Tgu\Polikarpov\Blog\User;
+use Tgu\Polikarpov\Blog\UUID;
 
 class Posts
 {
 
     public function __construct(
-        private int $id,
+        private UUID $uuid,
         private User $user,
         private string $title,
         private string $text,
@@ -19,7 +20,7 @@ class Posts
 
     public function __toString(): string
     {
-        return $this->id . ' ' . $this->user . ' ' . $this->title . ' ' . 
+        return $this->uuid . ' ' . $this->user . ' ' . $this->title . ' ' . 
             $this->text;
     }
 }
