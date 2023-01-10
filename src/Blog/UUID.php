@@ -2,7 +2,7 @@
 
 namespace Tgu\Polikarpov\Blog;
 
-use Tgu\Polikarpov\Exceptions\InvalidArgumentException;
+use Tgu\Polikarpov\Blog\Exceptions\InvalidArgumentException;
 
 class UUID
 {

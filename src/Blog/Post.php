@@ -8,7 +8,9 @@ class Post
 {
 
     public function __construct(
-        private Person $person,
+        private UUID $id,
+        private string $id_author,
+        private string $header,
         private string $text,
     )
     {
@@ -17,6 +19,20 @@ class Post
 
     public function __toString(): string
     {
-        return $this->person . ' пишет: ' . $this->text;
+        $id=$this->getUuid();
+        return "Post $id author $this->id_author with title $this->header and text - $this->text".PHP_EOL;
+    }
+
+    public function getUuid():UUID{
+        return $this->id;
+    }
+    public function getUuidUser():string{
+        return $this->id_author;
+    }
+    public function getTitle():string{
+        return $this->header;
+    }
+    public function getText():string{
+        return $this->text;
     }
 }

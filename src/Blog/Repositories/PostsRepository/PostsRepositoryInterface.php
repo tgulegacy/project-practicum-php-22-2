@@ -1,5 +1,7 @@
 <?php
 
+namespace Tgu\Polikarpov\Blog\Repositories\PostsRepository;
+
 use Tgu\Polikarpov\Blog\Post;
 use Tgu\Polikarpov\Blog\UUID;
 
