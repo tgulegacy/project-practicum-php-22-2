@@ -22,4 +22,7 @@ Content-Type: application/json
   "textCom":"bad"
 }
 ###
-POST http://127.0.0.1:8001/posts?uuid=6d0b4b12-5a43-4681-8a2f-47aa02cdcf23
+DELETE http://127.0.0.1:8001/posts?uuid=6d0b4b12-5a43-4681-8a2f-47aa02cdcf23
+###
+GET http://127.0.0.1:8001/users/show?username=admin
+Accept: application/json
