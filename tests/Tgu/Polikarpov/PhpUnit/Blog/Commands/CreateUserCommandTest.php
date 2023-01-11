@@ -11,6 +11,7 @@ use Tgu\Polikarpov\Blog\Repositories\UserRepository\UsersRepositoryInterface;
 use Tgu\Polikarpov\Blog\User;
 use Tgu\Polikarpov\Blog\UUID;
 use Tgu\Polikarpov\Person\Name;
+use Tgu\Polikarpov\PhpUnit\Blog\DummyLogger;
 
 class CreateUserCommandTest extends TestCase
 {
@@ -42,7 +43,8 @@ class CreateUserCommandTest extends TestCase
     public function testItThrowsAnExceptionWhenUserAlreadyExist():void
     {
         $command = new CreateUserCommand(
-            $this->makeUsersRepository()
+            $this->makeUsersRepository(),
+            new DummyLogger(),
         );
         $this->expectException(CommandException::class);
         $this->expectExceptionMessage('User already exist: Ivan');

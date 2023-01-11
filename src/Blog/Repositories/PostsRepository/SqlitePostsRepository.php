@@ -4,19 +4,22 @@ namespace Tgu\Polikarpov\Blog\Repositories\PostsRepository;
 
 use PDO;
 use PDOStatement;
+use Psr\Log\LoggerInterface;
 use Tgu\Polikarpov\Blog\Post;
 use Tgu\Polikarpov\Blog\UUID;
 use Tgu\Polikarpov\Blog\Exceptions\PostNotFoundException;
 
 class SqlitePostsRepository implements PostsRepositoryInterface
 {
-    public function __construct(private PDO $connection)
+    public function __construct(private PDO $connection,
+                                private LoggerInterface $logger,)
     {
 
     }
 
     public function save(Post $post): void
     {
+        $this->logger->info('Save post ');
         $statement = $this->connection->prepare(
             "INSERT INTO posts (uuid, uuid_author, title, text) VALUES (:uuid,:uuid_author,:title,:text)");
         $statement->execute([
@@ -24,6 +27,7 @@ class SqlitePostsRepository implements PostsRepositoryInterface
             ':uuid_author' => $post->getUuidUser(),
             ':title' => $post->getTitle(),
             ':text' => $post->getText()]);
+        $this->logger->info("'Save post: $post" );
     }
 
     /**

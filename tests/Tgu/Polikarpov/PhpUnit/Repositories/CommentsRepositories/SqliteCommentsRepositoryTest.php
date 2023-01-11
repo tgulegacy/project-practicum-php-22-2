@@ -14,6 +14,7 @@ use Tgu\Polikarpov\Blog\UUID;
 use Tgu\Polikarpov\Blog\Exceptions\InvalidArgumentException;
 use Tgu\Polikarpov\Blog\Exceptions\UserNotFoundException;
 use Tgu\Polikarpov\Person\Name;
+use Tgu\Polikarpov\PhpUnit\Blog\DummyLogger;
 
 class SqliteCommentsRepositoryTest extends TestCase
 {
@@ -25,7 +26,7 @@ class SqliteCommentsRepositoryTest extends TestCase
         $statementStub->method('fetch')->willReturn(false);
         $connectionStub->method('prepare')->willReturn($statementStub);
 
-        $repository = new SqliteCommentsRepository($connectionStub);
+        $repository = new SqliteCommentsRepository($connectionStub, new DummyLogger());
 
         $this->expectException(CommentNotFoundException::class);
         $this->expectExceptionMessage('Cannot get comment: Qooooo');
@@ -49,7 +50,7 @@ class SqliteCommentsRepositoryTest extends TestCase
             ]);
         $connectionStub->method('prepare')->willReturn($statementStub);
 
-        $repository = new SqliteCommentsRepository($connectionStub);
+        $repository = new SqliteCommentsRepository($connectionStub, new DummyLogger());
 
         $repository->save( new Comments(
             new UUID('20f51116-d587-4485-b209-29631dbdaad1'), '71a9a1a5-caae-4bc4-9c29-ab7a91bcf002','ec070a89-93f9-4176-bbed-da748ba77ae0','good'
@@ -64,7 +65,7 @@ class SqliteCommentsRepositoryTest extends TestCase
 
         $connectionStub->method('prepare')->willReturn($statementStub);
 
-        $repository = new SqliteCommentsRepository($connectionStub);
+        $repository = new SqliteCommentsRepository($connectionStub, new DummyLogger());
 
         $this->expectException(CommentNotFoundException::class);
 

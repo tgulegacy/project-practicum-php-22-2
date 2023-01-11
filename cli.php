@@ -1,5 +1,6 @@
 <?php
 
+use Psr\Log\LoggerInterface;
 use Tgu\Polikarpov\Blog\Commands\Arguments;
 use Tgu\Polikarpov\Blog\Commands\CreateUserCommand;
 use Tgu\Polikarpov\Blog\Exceptions\ArgumentException;
@@ -17,20 +18,37 @@ use Tgu\Polikarpov\Blog\Repositories\PostsRepository\SqlitePostsRepository;
 use Tgu\Polikarpov\Blog\Post;
 
 
+$conteiner = require __DIR__ .'/bootstrap.php';
+
+
+$command = $conteiner->get(CreateUserCommand::class);
+
+$logger= $conteiner-> get(LoggerInterface::class);
+try{$command->handle(Arguments::fromArgv($argv));}
+catch (ArgumentException|CommandException $exception){
+    $logger->error($exception->getMessage(),['exceptoin'=>$exception]);
+}
+
+
+
+
+
+
 //$conteiner = require __DIR__ .'/bootstrap.php';
 //$command = $conteiner->get(CreateUserCommand::class);
 //try{$command->handle(Arguments::fromArgv($argv));}
 //catch (ArgumentException|CommandException $exception){echo 
 //$exception->getMessage();}
 
-require_once __DIR__ . '/vendor/autoload.php';
+//require_once __DIR__ . '/vendor/autoload.php';
 
-$connection = new PDO('sqlite:' . __DIR__ . '/blog.sqlite');
+//$connection = new PDO('sqlite:' . __DIR__ . '/blog.sqlite');
 
-$likeRepository = new SqliteLikeRepositories($connection);
+//$likeRepository = new SqliteLikeRepositories($connection);
 
-$likeRepository->saveLike(new Likes(UUID::random(),'71a9a1a5-caae-4bc4-9c29-ab7a91bcf002',
- '055c7d95-3d90-4458-9c87-ccea8a577f7b'));
+//$likeRepository->saveLike(new Likes(UUID::random(),
+//'71a9a1a5-caae-4bc4-9c29-ab7a91bcf002',
+// '055c7d95-3d90-4458-9c87-ccea8a577f7b'));
 
 //require_once __DIR__ . '/vendor/autoload.php';
 

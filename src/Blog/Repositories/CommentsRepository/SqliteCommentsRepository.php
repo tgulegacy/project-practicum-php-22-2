@@ -4,19 +4,22 @@ namespace Tgu\Polikarpov\Blog\Repositories\CommentsRepository;
 
 use PDO;
 use PDOStatement;
+use Psr\Log\LoggerInterface;
 use Tgu\Polikarpov\Blog\Comments;
 use Tgu\Polikarpov\Blog\UUID;
 use Tgu\Polikarpov\Blog\Exceptions\CommentNotFoundException;
 
 class SqliteCommentsRepository implements CommentsRepositoryInterface
 {
-    public function __construct(private PDO $connection)
+    public function __construct(private PDO $connection,
+                                private LoggerInterface $logger,)
     {
 
     }
 
     public function save(Comments $comment): void
     {
+        $this->logger->info('Save comment ');
         $statement = $this->connection->prepare(
             "INSERT INTO comments (uuid, uuid_post, uuid_author, text) VALUES (:uuid,:uuid_post,:uuid_author, :text)");
         $statement->execute([
@@ -24,6 +27,7 @@ class SqliteCommentsRepository implements CommentsRepositoryInterface
             ':uuid_post' => $comment->getUuidPost(),
             ':uuid_author' => $comment->getUuidUser(),
             ':text' => $comment->getTextComment()]);
+        $this->logger->info("'Save comment: $comment" );
     }
 
     /**

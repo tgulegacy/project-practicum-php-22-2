@@ -11,6 +11,7 @@ use Tgu\Polikarpov\Blog\UUID;
 use Tgu\Polikarpov\Blog\Exceptions\InvalidArgumentException;
 use Tgu\Polikarpov\Blog\Exceptions\UserNotFoundException;
 use Tgu\Polikarpov\Person\Name;
+use Tgu\Polikarpov\PhpUnit\Blog\DummyLogger;
 
 class SqliteUsersRerositoryTest extends TestCase
 {
@@ -22,7 +23,7 @@ class SqliteUsersRerositoryTest extends TestCase
         $statementStub->method('fetch')->willReturn(false);
         $connectionStub->method('prepare')->willReturn($statementStub);
 
-        $repository = new SqliteUserRepository($connectionStub);
+        $repository = new SqliteUserRepository($connectionStub, new DummyLogger());
 
         $this->expectException(UserNotFoundException::class);
         $this->expectExceptionMessage('Cannot get user: admin');
@@ -46,7 +47,7 @@ class SqliteUsersRerositoryTest extends TestCase
             ]);
         $connectionStub->method('prepare')->willReturn($statementStub);
 
-        $repository = new SqliteUserRepository($connectionStub);
+        $repository = new SqliteUserRepository($connectionStub, new DummyLogger());
 
         $repository->save(new User(
             new UUID('ec070a89-93f9-4176-bbed-da748ba77ae0'),
@@ -65,7 +66,7 @@ class SqliteUsersRerositoryTest extends TestCase
         $statementStub->method('fetch')->willReturn(false);
         $connectionStub->method('prepare')->willReturn($statementStub);
 
-        $repository = new SqliteUserRepository($connectionStub);
+        $repository = new SqliteUserRepository($connectionStub, new DummyLogger());
         $this->expectException(UserNotFoundException::class);
         $this->expectExceptionMessage('Cannot get user: ec070a89-93f9-4176-bbed-da748ba77ae0');
 

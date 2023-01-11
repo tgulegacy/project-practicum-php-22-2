@@ -3,6 +3,7 @@
 namespace Tgu\Polikarpov\Blog\Repositories\UserRepository;
 
 use PDO;
+use Psr\Log\LoggerInterface;
 use Tgu\Polikarpov\Blog\User;
 use Tgu\Polikarpov\Blog\UUID;
 use Tgu\Polikarpov\Blog\Exceptions\UserNotFoundException;
@@ -11,7 +12,8 @@ use Tgu\Polikarpov\Person\Name;
 class SqliteUserRepository implements UsersRepositoryInterface
 {
     public function __construct(
-        private PDO $connection
+        private PDO $connection,
+        private LoggerInterface $logger,
     )
     {
         
